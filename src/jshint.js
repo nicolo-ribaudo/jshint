@@ -956,6 +956,11 @@ var JSHINT = (function() {
           }
         }
 
+        if (checkPunctuators(state.tokens.next, ["++", "--"]) &&
+            startLine(state.tokens.next) !== state.tokens.curr.line) {
+          break;
+        }
+
         advance();
 
         if (isArray && state.tokens.curr.id === "(" && state.tokens.next.id === ")") {
