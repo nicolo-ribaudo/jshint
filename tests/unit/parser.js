@@ -110,6 +110,15 @@ exports.plusplus = function (test) {
   run.test(code, { plusplus: false, esnext: true });
   run.test(code, { plusplus: false, moz: true });
 
+  code = [
+    "var a = b",
+    "++a",
+    "--b"
+  ];
+
+  TestRun(test, "gh-2717")
+    .test(code, { asi: true });
+
   test.done();
 };
 

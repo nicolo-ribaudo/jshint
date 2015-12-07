@@ -2230,10 +2230,29 @@ var JSHINT = (function() {
   suffix("++");
   prefix("++", "preinc");
   state.syntax["++"].exps = true;
+  Object.defineProperty(state.syntax["++"], "led", {
+    get: (function(led) {
+      return function() {
+        if (state.tokens.curr.line === startLine(state.tokens.next)) {
+          return led;
+        }
+      };
+    })(state.syntax["++"].led)
+  });
 
   suffix("--");
   prefix("--", "predec");
   state.syntax["--"].exps = true;
+  Object.defineProperty(state.syntax["--"], "led", {
+    get: (function(led) {
+      return function() {
+        if (state.tokens.curr.line === startLine(state.tokens.next)) {
+          return led;
+        }
+      };
+    })(state.syntax["--"].led)
+  });
+
   prefix("delete", function() {
     var p = expression(10);
     if (!p) {
